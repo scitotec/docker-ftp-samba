@@ -48,7 +48,9 @@ fi
 if [ -z "$SMB_URL" ]; then echo "missing SMB_URL"; exit 1; fi
 mount -t cifs -o "uid=$LOCAL_UID,gid=$LOCAL_UID,credentials=/etc/samba-credentials,vers=$SMB_VERSION$SMB_OPTS" "$SMB_URL" "$FOLDER"
 if [ $? -ne 0 ]; then
-  echo "could not mount samba"
+  echo "could not mount samba, recent kernel logs are:"
+  echo 
+  dmesg | tail
   exit 2
 fi
 
